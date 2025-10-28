@@ -2,8 +2,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - release
-      - release*
+      - main
   workflow_dispatch:
 
 permissions:
@@ -27,24 +26,18 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: ./
           publish_branch: gh-pages
           cname: 2011.xy724.com
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_site
+          path: ./
       
       - name: Deploy to GitHub Pages
         id: deployment
