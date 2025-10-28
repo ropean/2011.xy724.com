@@ -1,41 +1,59 @@
 name: Deploy to GitHub Pages
-
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
+      
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
-
+      
       - name: Add CNAME file
         run: echo "2011.xy724.com" > ./_site/CNAME
-
+      
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+          cname: 2011.xy724.com
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
-
+      
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      
+      - name: Deployment summary
+        run: |
+          echo "## ✅ Website Deployed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Website**: https://2011.xy724.com" >> $GITHUB_STEP_SUMMARY
+          echo "- **Pages URL**: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **gh-pages branch**: Updated ✓" >> $GITHUB_STEP_SUMMARY
+          echo "- **CNAME**: 2011.xy724.com ✓" >> $GITHUB_STEP_SUMMARY
