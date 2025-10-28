@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: Create CNAME file
+        run: echo "2011.xy724.com" > CNAME
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
       
@@ -29,9 +32,6 @@ jobs:
         with:
           source: ./
           destination: ./_site
-      
-      - name: Add CNAME file
-        run: echo "2011.xy724.com" > ./_site/CNAME
       
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
