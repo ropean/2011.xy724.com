@@ -14,19 +14,16 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Create CNAME file
         run: echo "2011.xy724.com" > CNAME
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      
+
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -34,16 +31,16 @@ jobs:
           publish_dir: ./
           publish_branch: gh-pages
           cname: 2011.xy724.com
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./
-      
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      
+
       - name: Deployment summary
         run: |
           echo "## ✅ Website Deployed" >> $GITHUB_STEP_SUMMARY
