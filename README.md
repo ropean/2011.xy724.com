@@ -1,6 +1,6 @@
 # Memories of 2011
 
-[![Deploy to GitHub Pages](https://github.com/ropean/2011.xy724.com/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/ropean/2011.xy724.com/actions/workflows/deploy.yml)
+[![Deploy to GitHub Pages](https://github.com/ropean/2011.xy724.com/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/ropean/2011.xy724.com/actions/workflows/deploy-github-pages.yml)
 [![Live Site](https://img.shields.io/badge/live-2011.xy724.com-blue)](https://2011.xy724.com)
 
 ## 📸 Screenshots
